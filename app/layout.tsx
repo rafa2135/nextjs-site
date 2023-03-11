@@ -1,6 +1,8 @@
 import "./globals.css";
 import Nav from "./auth/Nav";
 import { Roboto } from "next/font/google";
+import QueryWrapper from "./auth/QueryWrapper";
+
 const roboto = Roboto({
   subsets: ["latin"],
   weight: ["400", "700"],
@@ -21,8 +23,10 @@ export default async function RootLayout({
     <html lang="en">
       <head />
       <body className={`mx-4 md:mx-48 xl:mx-96 ${roboto.variable} bg-gray-200`}>
-        {nav}
-        {children}
+        <QueryWrapper>
+          {nav}
+          {children}
+        </QueryWrapper>
       </body>
     </html>
   );
