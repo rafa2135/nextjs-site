@@ -1,9 +1,14 @@
 "use client";
-import { useState } from "react";
 
+import { useMutation, useQueryClient } from "@tanstack/react-query";
+import { useState } from "react";
+import axios from "axios";
 export default function CreatePost() {
   const [title, settitle] = useState("");
   const [isDisabled, setIsDisabled] = useState(false);
+
+  //create a post
+
   return (
     <form className="bg-white my-6 p-4 rounded-md">
       <div className="flex flex-col my-4">
