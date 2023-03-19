@@ -2,7 +2,7 @@
 import type { NextApiRequest, NextApiResponse } from "next";
 import { getServerSession } from "next-auth/next";
 import { authOptions } from "../auth/[...nextauth]";
-import prisma from "../../../prisma/client";
+import client from "../../../prisma/client";
 
 export default async function handler(
   req: NextApiRequest,
@@ -10,13 +10,14 @@ export default async function handler(
 ) {
   if (req.method === "POST") {
     const session = await getServerSession(req, res, authOptions);
+
     if (!session) {
       return res.status(401).json({ message: "Please Sign in to make a post" });
     }
     const title: string = req.body.title;
     //get user
-    const prismaUser = await prisma.user.findUnique({
-      where: { email: session?.user?.email },
+    const prismaUser = await client.user.findUnique({
+      where: { email: session?.user?.email! },
     });
 
     //check title
@@ -29,10 +30,10 @@ export default async function handler(
 
     //create Post
     try {
-      const result = await prisma.post.create({
+      const result = await client.post.create({
         data: {
           title,
-          userId: prismaUser.id,
+          userId: prismaUser?.id!,
         },
       });
       res.status(200).json(result);
