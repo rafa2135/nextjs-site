@@ -1,4 +1,3 @@
-"use client";
 type ToggleProps = {
   deletePost: () => void;
   setToggle: (toggle: boolean) => void;
