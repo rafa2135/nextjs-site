@@ -29,15 +29,17 @@ export default async function handler(
       if (!title.length) {
         return res.status(401).json({ message: "please fill the title" });
       }
-
-      const result = await client.comment.create({
-        data: {
-          message: title,
-          userId: prismaUser?.id,
-          postId: postId,
-        },
-      });
-      res.status(200).json(result);
+      const userId = prismaUser?.id;
+      if (userId !== undefined) {
+        const result = await client.comment.create({
+          data: {
+            message: title,
+            userId: userId,
+            postId: postId,
+          },
+        });
+        res.status(200).json(result);
+      }
     } catch (err) {
       res.status(403).json({ err: `Error has occured whil Deleting a post` });
     }
