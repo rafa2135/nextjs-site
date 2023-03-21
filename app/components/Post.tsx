@@ -6,7 +6,7 @@ type propsPost = {
   name: string;
   postTitle: string;
   id: string;
-  comments?: {
+  comment?: {
     createdAt: string;
     id: string;
     postId: string;
@@ -18,7 +18,7 @@ export default function Post({
   name,
   postTitle,
   id,
-  comments,
+  comment,
 }: propsPost) {
   return (
     <div className="bg-white my-8 p-8 rounded-lg">
@@ -38,7 +38,7 @@ export default function Post({
       <div className="flex gap-4 cursor-pointer items-center">
         <Link href={`post/${id}`}>
           <p className="text-sm font-bold text-gray-700">
-            {comments?.length} Comments
+            {comment?.length} Comments
           </p>
         </Link>
       </div>
