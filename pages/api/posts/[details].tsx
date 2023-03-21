@@ -13,7 +13,7 @@ export default async function handler(
 
       const data = await prisma.post.findUnique({
         where: {
-          id: req.query.details,
+          id: req.query.details as string,
         },
         include: {
           user: true,
